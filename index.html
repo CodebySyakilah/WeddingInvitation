@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wedding Invitation</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- BACKGROUND MUSIC -->
+  <audio id="bgm" src="music.mp3" loop></audio>
+
+  <!-- COVER PAGE -->
+<section id="cover">
+  <div class="cover-wrapper">
+    <img src="cover.png" alt="Cover Image" class="cover-image" />
+    <button id="openBtn">OPEN</button>
+  </div>
+</section>
+
+  
+
+  <!-- MAIN CONTENT -->
+  <div id="main" class="hidden">
+
+    <!-- VIDEO SECTION -->
+    <section id="video" class="fade">
+      <video src="video.mp4" controls autoplay muted loop></video>
+    </section>
+
+<!-- INFO 1 -->
+<section id="info1" class="fade section-image">
+  <img src="info1.png" alt="Majlis Akad Nikah" />
+</section>
+
+<!-- INFO 2 -->
+<section id="info2" class="fade section-image">
+  <img src="info2.png" alt="Majlis Resepsi" />
+</section>
+
+    <!-- COUNTDOWN -->
+<section id="countdown" class="fade themed-section">
+  <h2>Kiraan Detik ke Hari Bahagia Kami</h2>
+  <div class="countdown-container">
+    <div>
+      <span id="days">00</span>
+      <label>Hari</label>
+    </div>
+    <div>
+      <span id="hours">00</span>
+      <label>Jam</label>
+    </div>
+    <div>
+      <span id="minutes">00</span>
+      <label>Minit</label>
+    </div>
+    <div>
+      <span id="seconds">00</span>
+      <label>Saat</label>
+    </div>
+  </div>
+</section>
+
+<!-- INFO 3 -->
+<section id="info3" class="fade section-image">
+  <img src="info3.png" alt="Lokasi Majlis" />
+</section>
+
+    <!-- WISH SECTION -->
+<section id="wish" class="fade themed-section">
+  <h2>Ucapan & Doa</h2>
+  <form id="wishForm">
+    <input type="text" id="nameInput" placeholder="Nama Anda" required><br>
+    <textarea id="wishInput" placeholder="Ucapan anda..." rows="4" required></textarea><br>
+    <button type="submit">Hantar</button>
+  </form>
+  <div id="wishScrollContainer">
+  <div id="wishContainer"></div>
+</div>
+
+</section>
+
+<!-- THANK YOU -->
+<section id="thankyou" class="fade section-image">
+  <img src="thankyou.png" alt="Terima Kasih" />
+</section>
+
+  </div>
+
+  <!-- POPUP SECTION -->
+  <div id="popup" class="hidden"></div>
+
+<!-- NAVIGATION -->
+<nav id="navbar" class="hidden">
+  <div class="nav-container">
+    <div class="nav-button" onclick="showLocationPopup()">
+      <img src="icon-location.png" alt="Location" class="nav-icon" />
+      <span class="nav-label">Location</span>
+    </div>
+    <div class="nav-button" onclick="scrollToSection('wish')">
+      <img src="icon-wish.png" alt="Wish" class="nav-icon" />
+      <span class="nav-label">Wish</span>
+    </div>
+    <div class="nav-button" onclick="showCalendarPopup()">
+      <img src="icon-calendar.png" alt="Calendar" class="nav-icon" />
+      <span class="nav-label">Calendar</span>
+    </div>
+    <div class="nav-button" onclick="showContactPopup()">
+      <img src="icon-contact.png" alt="Contact" class="nav-icon" />
+      <span class="nav-label">Contact</span>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+  <!-- SCRIPT -->
+  <script>
+    // Open Invitation
+document.getElementById('openBtn').addEventListener('click', () => {
+  document.getElementById('cover').style.display = 'none';
+  const main = document.getElementById('main');
+  main.classList.remove('hidden');
+  document.getElementById('navbar').classList.remove('hidden'); // Show nav bar
+  window.scrollTo(0, 0);
+  document.getElementById('bgm').play();
+});
+
+    // Fade-in on scroll
+    const faders = document.querySelectorAll(".fade");
+    const appearOptions = {
+      threshold: 0.3,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("appear");
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    // Countdown
+    const countdownDate = new Date("2025-10-18T00:00:00").getTime();
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("days").innerText = 0;
+        document.getElementById("hours").innerText = 0;
+        document.getElementById("minutes").innerText = 0;
+        document.getElementById("seconds").innerText = 0;
+      }
+    }, 1000);
+
+
+// Wish Form
+const wishForm = document.getElementById('wishForm');
+const wishContainer = document.getElementById('wishContainer');
+
+wishForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('nameInput').value;
+  const wish = document.getElementById('wishInput').value;
+
+  const wishDiv = document.createElement('div');
+  wishDiv.classList.add('wish-message');
+  wishDiv.innerHTML = `
+    <div class="wish-name">${name}</div>
+    <div class="wish-text">${wish}</div>
+  `;
+  wishContainer.prepend(wishDiv);
+
+  wishForm.reset();
+});
+
+    // Popup Functions
+    const popup = document.getElementById('popup');
+
+    function closePopupAfter(seconds = 8) {
+      setTimeout(() => {
+        popup.classList.add('hidden');
+        popup.innerHTML = '';
+      }, seconds * 1000);
+    }
+
+function showLocationPopup() {
+  popup.innerHTML = `
+    <p>Choose a navigation app:</p>
+    <button onclick="window.open('https://maps.google.com/?q=Skyawani+Commercial,+03-18,+27,+Jalan+Sentul+Pasar,+51100+Kuala+Lumpur', '_blank')">Google Maps</button>
+    <button onclick="window.open('https://waze.com/ul?ll=3.184093,101.692802&navigate=yes', '_blank')">Waze</button>
+  `;
+  popup.classList.remove('hidden');
+  closePopupAfter();
+}
+
+
+    function showCalendarPopup() {
+      popup.innerHTML = `
+        <p>Save the date: 18 October 2025</p>
+        <a href="invite.ics" download><button>Add to Calendar</button></a>
+      `;
+      popup.classList.remove('hidden');
+      closePopupAfter();
+    }
+
+    function showContactPopup() {
+      popup.innerHTML = `
+        <p>Choose contact:</p>
+        <button onclick="window.open('https://wa.me/60197420478', '_blank')">Aziah</button>
+        <button onclick="window.open('https://wa.me/601124033872', '_blank')">Muadz</button>
+        <button onclick="window.open('https://wa.me/60194106579', '_blank')">Syakilah</button>
+      `;
+      popup.classList.remove('hidden');
+      closePopupAfter();
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
