@@ -199,7 +199,8 @@ section {
 
 .wish-message {
   margin-top: 10px;
-  background-color: #ffe6e6;
+  background-color: #e5d4aa; /* Tukar warna latar belakang */
+  color: #000000; /* Warna tulisan secara default */
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -212,11 +213,13 @@ section {
 .wish-name {
   font-weight: bold;
   font-size: 16px;
+  color: #000000; /* Warna tulisan wish */
 }
 
 .wish-text {
   font-style: italic;
   font-size: 14px;
+  color: #000000; /* Warna tulisan wish */
 }
 
 #wishScrollContainer {
