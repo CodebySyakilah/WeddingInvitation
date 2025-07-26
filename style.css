@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Playfair Display', serif;
   scroll-behavior: smooth;
 }
 
@@ -37,6 +37,7 @@ body {
 }
 
 #openBtn {
+	font-family: 'Playfair Display', serif;
   position: absolute;
   bottom: 25%;
   background-color: #e1d0a6;
@@ -57,7 +58,7 @@ body {
 
 /* --- Section Styling --- */
 section {
-  padding: 80px 20px;
+  padding: 10px 20px;
   text-align: center;
 }
 
@@ -77,8 +78,8 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
-  margin: 40px 0;
+  padding: 20px 0;
+  margin: 20px 0;
 }
 
 .section-image img {
@@ -89,7 +90,7 @@ section {
 /* --- Info Sections --- */
 .info-section {
   padding: 0;
-  margin: 50px 0;
+  margin: 20px 0;
   text-align: center;
 }
 
@@ -100,6 +101,7 @@ section {
   margin: 0 auto;
   max-height: 100vh;
   object-fit: contain; /* Pastikan gambar muat dalam skrin tanpa crop */
+  margin-bottom: 20px;
 }
 
 
@@ -107,7 +109,7 @@ section {
 #video {
   background-color: #000;
   padding: 0;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
 }
 
 #video video {
@@ -125,19 +127,20 @@ section {
 
 #countdown h2 {
   font-family: 'Brush Script MT', cursive;
-  font-size: 50px;
+  font-size: 25px;
   color: #e5d4aa;
   letter-spacing: 1px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
   background: linear-gradient(to right, #e5d4aa, #fff3d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 
 /* Countdown Single Box */
 .countdown-single-box {
+	font-family: 'Playfair Display', serif;
   display: inline-block;
   background-color: #2b3f6c;
   color: #e5d4aa;
@@ -150,18 +153,19 @@ section {
 }
 
 
+
 /* --- Wish Section --- */
 
 #wish h2 {
   font-family: 'Brush Script MT', cursive;
-  font-size: 50px;
+  font-size: 25px;
   color: #e5d4aa;
   letter-spacing: 1px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
   background: linear-gradient(to right, #e5d4aa, #fff3d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 
@@ -171,6 +175,7 @@ section {
 
 #wishForm input,
 #wishForm textarea {
+	font-family: 'Playfair Display', serif;
   width: 90%;
   max-width: 400px;
   margin: 10px 0;
@@ -182,6 +187,7 @@ section {
 }
 
 #wishForm button {
+	font-family: 'Playfair Display', serif;
   padding: 10px 20px;
   background-color: #e5d4aa;
   color: #000000;
@@ -210,12 +216,14 @@ section {
 }
 
 .wish-name {
+	font-family: 'Playfair Display', serif;
   font-weight: bold;
   font-size: 16px;
   color: #fffff; /* Warna tulisan wish */
 }
 
 .wish-text {
+	font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 14px;
   color: #fffff; /* Warna tulisan wish */
@@ -443,14 +451,14 @@ nav {
 /* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
   #info1, #info2, #info3, #thankyou {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     height: auto;
   }
 
   section {
 	background-color: #192850;
-    padding: 40px 10px;
+    padding: 10px 10px;
   }
 
   .wish-message {
@@ -483,6 +491,7 @@ nav {
   }
   
 #credit {
+	font-family: 'Playfair Display', serif;
   background-color: #192850;
   color: white;
   text-align: center;
