@@ -6,6 +6,11 @@
   <title>Wedding Invitation</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+	
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 </head>
 <body>
 
@@ -174,27 +179,62 @@ document.getElementById('openBtn').addEventListener('click', () => {
         document.getElementById("seconds").innerText = 0;
       }
     }, 1000);
+	
+	
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyC9uSwgPscJp_RxWTey9xXxcn-cJtT61_M",
+    authDomain: "weddingwish-1d9a0.firebaseapp.com",
+    databaseURL: "https://weddingwish-1d9a0-default-rtdb.firebaseio.com",
+    projectId: "weddingwish-1d9a0",
+    storageBucket: "weddingwish-1d9a0.firebasestorage.app",
+    messagingSenderId: "1083808773473",
+    appId: "1:1083808773473:web:66975950cd89688a110120",
+    measurementId: "G-SFYM8LR9VQ"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
 
 // Wish Form
-const wishForm = document.getElementById('wishForm');
-const wishContainer = document.getElementById('wishContainer');
+  const wishForm = document.getElementById('wishForm');
+  const wishContainer = document.getElementById('wishContainer');
 
-wishForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('nameInput').value;
-  const wish = document.getElementById('wishInput').value;
+  // Save new wish
+  wishForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('nameInput').value;
+    const wish = document.getElementById('wishInput').value;
 
-  const wishDiv = document.createElement('div');
-  wishDiv.classList.add('wish-message');
-  wishDiv.innerHTML = `
-    <div class="wish-name">${name}</div>
-    <div class="wish-text">${wish}</div>
-  `;
-  wishContainer.prepend(wishDiv);
+    const newWishRef = db.ref('wishes').push();
+    newWishRef.set({
+      name: name,
+      wish: wish,
+      timestamp: Date.now()
+    });
 
-  wishForm.reset();
-});
+    wishForm.reset();
+  });
+
+  // Realtime listener to show wishes
+  db.ref('wishes').orderByChild('timestamp').on('value', snapshot => {
+    wishContainer.innerHTML = ''; // Clear previous wishes
+    const data = snapshot.val();
+    if (data) {
+      const sorted = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+      sorted.forEach(item => {
+        const wishDiv = document.createElement('div');
+        wishDiv.classList.add('wish-message');
+        wishDiv.innerHTML = `
+          <div class="wish-name">${item.name}</div>
+          <div class="wish-text">${item.wish}</div>
+        `;
+        wishContainer.appendChild(wishDiv);
+      });
+    }
+  });
 
     // Popup Functions
     const popup = document.getElementById('popup');
