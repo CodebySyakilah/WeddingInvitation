@@ -59,7 +59,6 @@ body {
 section {
   padding: 80px 20px;
   text-align: center;
-  background-color: #fff;
 }
 
 .fade {
@@ -88,31 +87,21 @@ section {
 }
 
 /* --- Info Sections --- */
-#info1, #info2, #info3, #thankyou {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.info-section {
   padding: 0;
-  height: 100vh;
   margin: 50px 0;
+  text-align: center;
 }
 
-#info1 {
-  background-image: url('info1.png');
-  margin-top: 250px;
+.info-section img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-height: 100vh;
+  object-fit: contain; /* Pastikan gambar muat dalam skrin tanpa crop */
 }
 
-#info2 {
-  background-image: url('info2.png');
-}
-
-#info3 {
-  background-image: url('info3.png');
-}
-
-#thankyou {
-  background-image: url('thankyou.png');
-}
 
 /* --- Video --- */
 #video {
@@ -126,7 +115,7 @@ section {
   height: auto;
 }
 
-/* --- Countdown --- */
+/* --- Countdown Section --- */
 .themed-section {
   background-color: #192850;
   color: #e5d4aa;
@@ -135,37 +124,47 @@ section {
 }
 
 #countdown h2 {
-  font-size: 26px;
-  margin-bottom: 20px;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 50px;
+  color: #e5d4aa;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  background: linear-gradient(to right, #e5d4aa, #fff3d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 40px;
 }
 
-.countdown-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
 
-.countdown-container div {
+/* Countdown Single Box */
+.countdown-single-box {
+  display: inline-block;
   background-color: #2b3f6c;
-  padding: 20px;
+  color: #e5d4aa;
+  padding: 15px 25px;
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  min-width: 80px;
-}
-
-.countdown-container span {
-  font-size: 32px;
+  font-size: 20px;
   font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  white-space: nowrap;
 }
 
-.countdown-container label {
-  font-size: 14px;
-  margin-top: 5px;
-  display: block;
-}
 
 /* --- Wish Section --- */
+
+#wish h2 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 50px;
+  color: #e5d4aa;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  background: linear-gradient(to right, #e5d4aa, #fff3d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 40px;
+}
+
+
 #wishForm {
   margin-top: 20px;
 }
@@ -185,7 +184,7 @@ section {
 #wishForm button {
   padding: 10px 20px;
   background-color: #e5d4aa;
-  color: #192850;
+  color: #000000;
   font-weight: bold;
   border: none;
   border-radius: 8px;
@@ -199,8 +198,8 @@ section {
 
 .wish-message {
   margin-top: 10px;
-  background-color: #e5d4aa; /* Tukar warna latar belakang */
-  color: #000000; /* Warna tulisan secara default */
+  background-color: #2b3f6c; /* Tukar warna latar belakang */
+  color: #fffff; /* Warna tulisan secara default */
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -213,13 +212,13 @@ section {
 .wish-name {
   font-weight: bold;
   font-size: 16px;
-  color: #000000; /* Warna tulisan wish */
+  color: #fffff; /* Warna tulisan wish */
 }
 
 .wish-text {
   font-style: italic;
   font-size: 14px;
-  color: #000000; /* Warna tulisan wish */
+  color: #fffff; /* Warna tulisan wish */
 }
 
 #wishScrollContainer {
@@ -330,6 +329,117 @@ nav {
   display: none;
 }
 
+.falling-petals {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.petal {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-image: url('kelopak.png');
+  background-size: cover;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.glow {
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.8)); /* optional: soft pink glow */
+}
+
+@keyframes glowPulse {
+  from {
+    filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(255, 182, 193, 1));
+  }
+}
+
+
+.light-effect {
+  position: fixed; /* ✅ Kekal di viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; /* ✅ Pastikan berada atas semua content */
+  pointer-events: none;
+}
+
+
+.light-effect span {
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(white, rgba(255, 255, 255, 0));
+  border-radius: 50%;
+  animation: blink 5s infinite ease-in-out;
+  opacity: 0.5;
+}
+
+@keyframes blink {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.7;
+  }
+}
+
+
+.flicker {
+  animation: candle 1.5s infinite;
+  color: #fff8e1;
+  text-shadow: 0 0 8px #ffd;
+}
+
+@keyframes candle {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.8; }
+  55% { opacity: 0.9; }
+  70% { opacity: 0.7; }
+}
+
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(#fff, transparent);
+  border-radius: 50%;
+  animation: sparkle 2s infinite alternate ease-in-out;
+  opacity: 0.6;
+}
+
+@keyframes sparkle {
+  0% { transform: scale(0.8); opacity: 0.2; }
+  100% { transform: scale(1.4); opacity: 0.8; }
+}
+
+
+
 /* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
   #info1, #info2, #info3, #thankyou {
@@ -339,6 +449,7 @@ nav {
   }
 
   section {
+	background-color: #192850;
     padding: 40px 10px;
   }
 
@@ -370,4 +481,25 @@ nav {
     max-width: 90%;
     font-size: 14px;
   }
+  
+#credit {
+  background-color: #192850;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 40px;
+}
+
+.fade {
+  opacity: 0;
+  transform: scale(0.95) translateY(40px);
+  transition: all 1s ease;
+}
+.fade.appear {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+
+  
 }
