@@ -252,9 +252,12 @@ document.getElementById('openBtn').addEventListener('click', () => {
 
 function showLocationPopup() {
   popup.innerHTML = `
-    <p>Choose a navigation app:</p>
-    <button onclick="window.open('https://maps.google.com/?q=Skyawani+Commercial,+03-18,+27,+Jalan+Sentul+Pasar,+51100+Kuala+Lumpur', '_blank')">Google Maps</button>
-    <button onclick="window.open('https://waze.com/ul?ll=3.184093,101.692802&navigate=yes', '_blank')">Waze</button>
+    <button onclick="window.open('https://share.google/oESSyG5y8VgMGRrcc', '_blank')">
+      Google Maps
+    </button>
+    <button onclick="window.open('https://waze.com/ul/hw28660098', '_blank')">
+      Waze
+    </button>
   `;
   popup.classList.remove('hidden');
   closePopupAfter();
@@ -263,8 +266,7 @@ function showLocationPopup() {
 
     function showCalendarPopup() {
       popup.innerHTML = `
-        <p>Save the date: 18 October 2025</p>
-        <a href="invite.ics" download><button>Add to Calendar</button></a>
+        <a href="invite.ics" download><button>18 October 2025</button></a>
       `;
       popup.classList.remove('hidden');
       closePopupAfter();
@@ -272,7 +274,6 @@ function showLocationPopup() {
 
     function showContactPopup() {
       popup.innerHTML = `
-        <p>Choose contact:</p>
         <button onclick="window.open('https://wa.me/60197420478', '_blank')">Aziah</button>
         <button onclick="window.open('https://wa.me/601124033872', '_blank')">Muadz</button>
         <button onclick="window.open('https://wa.me/60194106579', '_blank')">Syakilah</button>
